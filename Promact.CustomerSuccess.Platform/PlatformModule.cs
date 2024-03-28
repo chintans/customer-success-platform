@@ -48,6 +48,8 @@ using Volo.Abp.Security.Claims;
 using Volo.Abp.UI.Navigation.Urls;
 using Volo.Abp.Validation.Localization;
 using Volo.Abp.VirtualFileSystem;
+using Autofac.Core;
+
 
 namespace Promact.CustomerSuccess.Platform;
 
@@ -141,6 +143,8 @@ public class PlatformModule : AbpModule
 
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
+     
+
         var hostingEnvironment = context.Services.GetHostingEnvironment();
         var configuration = context.Services.GetConfiguration();
 
@@ -312,6 +316,21 @@ public class PlatformModule : AbpModule
                     .AllowCredentials();
             });
         });
+    }
+    public void ConfigureServices(IServiceCollection services)
+    {
+        services.AddCors(options =>
+        {
+            options.AddPolicy("AllowLocalhost4200",
+                builder =>
+                {
+                    builder.WithOrigins("http://localhost:4200")
+                           .AllowAnyHeader()
+                           .AllowAnyMethod();
+                });
+        });
+
+        // Other service configurations...
     }
 
     private void ConfigureDataProtection(ServiceConfigurationContext context)

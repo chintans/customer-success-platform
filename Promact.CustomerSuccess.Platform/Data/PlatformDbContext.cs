@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Promact.CustomerSuccess.Platform.Entities;
+using System.Reflection.Emit;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore.Modeling;
@@ -19,11 +20,23 @@ public class PlatformDbContext : AbpDbContext<PlatformDbContext>
     {
     }
 
+
+    public DbSet<ProjectDescription> ProjectDescriptions{ get; set; }
+    public DbSet<Stakeholder> Stakeholders { get; set; }
+    public DbSet<RemediationStep>RemediationSteps { get; set; }
+
+    public DbSet<Scope> Scopes { get; set; }
+    public DbSet<AuditHistory>AuditHistories { get; set; }
+    public DbSet<ApprovedTeam> ApprovedTeams { get; set; }
+    public DbSet<ClientFeedback> ClientFeedbacks { get; set; }
+  
+   
+    public DbSet<ProjectUpdate> ProjectUpdates { get; set; }
     public DbSet<Project> Projects { get; set; }
     public DbSet<Document> Documents { get; set; }
     public DbSet<DocumentVersion> DocumentVersions { get; set; }
     public DbSet<Organization> Organizations { get; set; }
-    public DbSet<ClientFeedback> ClientFeedbacks { get; set; }
+
     public DbSet<ProjectBudget> ProjectBudgets { get; set; }
     public DbSet<PhaseMilestone> PhaseMilestones { get; set; }
     public DbSet<ProjectResources> ProjectResources { get; set; }
@@ -36,6 +49,7 @@ public class PlatformDbContext : AbpDbContext<PlatformDbContext>
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
+        
         base.OnModelCreating(builder);
 
         /* Include modules to your migration db context */
@@ -49,6 +63,47 @@ public class PlatformDbContext : AbpDbContext<PlatformDbContext>
         builder.ConfigureTenantManagement();
 
         /* Configure your own entities here */
+        builder.Entity<ProjectDescription>(ProjectDescription =>
+        {
+            ProjectDescription.ConfigureByConvention();
+        });
+
+        builder.Entity<Stakeholder>(Stakeholder =>
+        {
+            Stakeholder.ConfigureByConvention();
+        });
+
+
+        builder.Entity<RemediationStep>(RemediationStep =>
+        {
+            RemediationStep.ConfigureByConvention();
+        });
+
+
+        builder.Entity<Scope>(Scope =>
+        {
+            Scope.ConfigureByConvention();
+        });
+
+
+        builder.Entity<AuditHistory>(AuditHistory =>
+        {
+            AuditHistory.ConfigureByConvention();
+        });
+
+        builder.Entity<ClientFeedback>(ClientFeedback =>
+        {
+            ClientFeedback.ConfigureByConvention();
+        });
+
+        builder.Entity<ApprovedTeam>(ApprovedTeam =>
+        {
+            ApprovedTeam.ConfigureByConvention();
+        });
+        builder.Entity<ProjectUpdate>(ProjectUpdate =>
+        {
+            ProjectUpdate.ConfigureByConvention();
+        });
         builder.Entity<DocumentVersion>(entity =>
         {                        
             entity.ConfigureByConvention();
@@ -89,10 +144,7 @@ public class PlatformDbContext : AbpDbContext<PlatformDbContext>
         {
             PhaseMilestone.ConfigureByConvention();
         });
-        builder.Entity<ClientFeedback>(ClientFeedback =>
-        {
-            ClientFeedback.ConfigureByConvention();
-        });
+     
         builder.Entity<Document>(Document =>
         {
             Document.ConfigureByConvention();
