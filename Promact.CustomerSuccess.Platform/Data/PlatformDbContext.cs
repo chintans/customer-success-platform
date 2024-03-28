@@ -20,11 +20,16 @@ public class PlatformDbContext : AbpDbContext<PlatformDbContext>
     }
 
     public DbSet<Project> Projects { get; set; }
+    public DbSet<ApprovedTeam> ApprovedTeam { get; set; }
     public DbSet<Document> Documents { get; set; }
     public DbSet<DocumentVersion> DocumentVersions { get; set; }
     public DbSet<Organization> Organizations { get; set; }
     public DbSet<ClientFeedback> ClientFeedbacks { get; set; }
     public DbSet<ProjectBudget> ProjectBudgets { get; set; }
+    public DbSet<ProjectDescription> ProjectDescription { get; set; }
+    public DbSet<VersionHistory> VersionHistory { get; set; }
+    public DbSet<AuditHistory> AuditHistory { get; set; }
+    public DbSet<StakeHolder> StakeHolder { get; set; }
     public DbSet<PhaseMilestone> PhaseMilestones { get; set; }
     public DbSet<ProjectResources> ProjectResources { get; set; }
     public DbSet<RiskProfile> RiskProfiles { get; set; }
@@ -32,6 +37,7 @@ public class PlatformDbContext : AbpDbContext<PlatformDbContext>
     public DbSet<EscalationMatrix> EscalationMatrices { get; set; }
     public DbSet<Sprint> Sprints { get; set; }
     public DbSet<ApplicationUser> Users { get; set; }
+    public DbSet<ProjectUpdate> ProjectUpdates { get; set; }
 
 
     protected override void OnModelCreating(ModelBuilder builder)
@@ -73,6 +79,22 @@ public class PlatformDbContext : AbpDbContext<PlatformDbContext>
         {
             ProjectBudget.ConfigureByConvention();
         });
+        builder.Entity<ProjectDescription>(ProjectDescription =>
+        {
+            ProjectDescription.ConfigureByConvention();
+        });
+        builder.Entity<VersionHistory>(VersionHistory =>
+        {
+            VersionHistory.ConfigureByConvention();
+        });
+        builder.Entity<AuditHistory>(AuditHistory =>
+        {
+            AuditHistory.ConfigureByConvention();
+        });
+        builder.Entity<StakeHolder>(StakeHolder =>
+        {
+            StakeHolder.ConfigureByConvention();
+        });
         builder.Entity<ProjectResources>(ProjectResources =>
         {
             ProjectResources.ConfigureByConvention();
@@ -100,6 +122,14 @@ public class PlatformDbContext : AbpDbContext<PlatformDbContext>
         builder.Entity<ApplicationUser>(ApplicationUser =>
         {
             ApplicationUser.ConfigureByConvention();
+        });
+        builder.Entity<ApprovedTeam>(ApprovedTeam =>
+        {
+            ApprovedTeam.ConfigureByConvention();
+        });
+        builder.Entity<ProjectUpdate>(ProjectUpdate =>
+        {
+            ProjectUpdate.ConfigureByConvention();
         });
 
 

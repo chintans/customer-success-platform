@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -48,6 +48,7 @@ using Volo.Abp.Security.Claims;
 using Volo.Abp.UI.Navigation.Urls;
 using Volo.Abp.Validation.Localization;
 using Volo.Abp.VirtualFileSystem;
+using Volo.Abp.MailKit;
 
 namespace Promact.CustomerSuccess.Platform;
 
@@ -98,7 +99,9 @@ namespace Promact.CustomerSuccess.Platform;
     typeof(AbpSettingManagementEntityFrameworkCoreModule),
     typeof(AbpSettingManagementHttpApiModule)
 )]
-public class PlatformModule : AbpModule
+[DependsOn(typeof(AbpEmailingModule))]
+    [DependsOn(typeof(AbpMailKitModule))]
+    public class PlatformModule : AbpModule
 {
     /* Single point to enable/disable multi-tenancy */
     private const bool IsMultiTenant = true;
@@ -113,6 +116,14 @@ public class PlatformModule : AbpModule
             options.AddAssemblyResource(
                 typeof(PlatformResource)
             );
+        });
+
+        context.Services.AddCors(options =>
+        {
+            options.AddPolicy("AllowOrigin",
+                builder => builder.AllowAnyOrigin()
+                                  .AllowAnyMethod()
+                                  .AllowAnyHeader());
         });
 
         PreConfigure<OpenIddictBuilder>(builder =>
@@ -348,6 +359,7 @@ public class PlatformModule : AbpModule
         if (env.IsDevelopment())
         {
             app.UseDeveloperExceptionPage();
+            app.UseCors("AllowOrigin");
         }
 
         app.UseAbpRequestLocalization();
@@ -355,6 +367,7 @@ public class PlatformModule : AbpModule
         if (!env.IsDevelopment())
         {
             app.UseErrorPage();
+            
         }
 
         app.UseCorrelationId();
