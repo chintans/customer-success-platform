@@ -8,5 +8,8 @@ public class HomeController : AbpController
     public ActionResult Index()
     {
         return Redirect("~/swagger");
+        //return View();
+        //return RedirectToAction("ActionName", "ControllerName");
+
     }
 }

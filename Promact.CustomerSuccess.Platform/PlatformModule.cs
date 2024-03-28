@@ -48,6 +48,7 @@ using Volo.Abp.Security.Claims;
 using Volo.Abp.UI.Navigation.Urls;
 using Volo.Abp.Validation.Localization;
 using Volo.Abp.VirtualFileSystem;
+using Promact.CustomerSuccess.Platform.Services.EmailServices;
 
 namespace Promact.CustomerSuccess.Platform;
 
@@ -115,6 +116,14 @@ public class PlatformModule : AbpModule
             );
         });
 
+        context.Services.AddCors(options =>
+        {
+            options.AddPolicy("AllowOrigin",
+                builder => builder.AllowAnyOrigin()
+                                  .AllowAnyMethod()
+                                  .AllowAnyHeader());
+        });
+
         PreConfigure<OpenIddictBuilder>(builder =>
         {
             builder.AddValidation(options =>
@@ -143,6 +152,7 @@ public class PlatformModule : AbpModule
     {
         var hostingEnvironment = context.Services.GetHostingEnvironment();
         var configuration = context.Services.GetConfiguration();
+        context.Services.AddScoped<IEmailService, EmailService>();
 
         if (hostingEnvironment.IsDevelopment())
         {
@@ -347,6 +357,7 @@ public class PlatformModule : AbpModule
 
         if (env.IsDevelopment())
         {
+            app.UseCors("AllowOrigin");
             app.UseDeveloperExceptionPage();
         }
 
