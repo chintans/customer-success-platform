@@ -1,0 +1,61 @@
+<button id="download-btn" (click)="makePdf()">Download</button>
+
+<form (ngSubmit)="onSubmit()" class="form-container">
+  <div class="form-group">
+    <mat-form-field appearance="fill">
+      <mat-label>ID:</mat-label>
+      <mat-select [(ngModel)]="formData.projectId" name="id" required>
+        <mat-option *ngFor="let item of availableIds" [value]="item.id">{{ item.name }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="form-group">
+    <mat-form-field appearance="fill">
+      <mat-label>Title</mat-label>
+      <input matInput type="number" [(ngModel)]="formData.title" name="title" required />
+    </mat-form-field>
+  </div>
+  <div class="form-group">
+    <mat-form-field appearance="fill">
+      <mat-label>Name</mat-label>
+      <input matInput type="text" [(ngModel)]="formData.name" name="name" required />
+    </mat-form-field>
+  </div>
+  <div class="form-group">
+    <mat-form-field appearance="fill">
+      <mat-label>Contact:</mat-label>
+      <input matInput type="text" [(ngModel)]="formData.contact" name="contact" required />
+    </mat-form-field>
+  </div>
+  <button type="submit" mat-raised-button color="primary">Submit</button>
+</form>
+
+<table #content class="table-container ">
+  <thead>
+    <tr>
+      <th>Project Id</th>
+      <th>Title</th>
+      <th>Name</th>
+      <th>Contact</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of projects; let i = index">
+      <td>{{ item.id }}</td>
+      <td>{{ item.title }}</td>
+      <td>{{ item.name }}</td>
+      <td>{{ item.contact }}</td>
+      <td>
+        <button
+          mat-raised-button
+          color="warn"
+          (click)="delete(item.id)"
+          class="action-button"
+        >
+          Delete
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

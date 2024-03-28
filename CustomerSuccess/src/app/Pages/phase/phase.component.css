@@ -1,0 +1,39 @@
+/* CSS for Form Container */
+.form-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.table-container {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.table-container th {
+  background-color: #f2f2f2;
+  padding: 8px;
+  text-align: left;
+}
+
+.table-container td {
+  padding: 8px;
+}
+
+.action-button i {
+  color: #777;
+}
+
+.action-button:hover i {
+  color: #333;
+}
+
+.custom-button {
+  width: 100px; /* Adjust the width according to your preference */
+}

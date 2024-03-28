@@ -1,0 +1,141 @@
+<form (ngSubmit)="onSubmit()" class="form-container">
+  <div class="form-group">
+    <mat-form-field>
+      <mat-label>ID:</mat-label>
+      <mat-select [(ngModel)]="formData.projectId" name="id" required>
+        <mat-option *ngFor="let item of availableIds" [value]="item.id">
+          {{ item.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="form-group">
+    <mat-form-field>
+      <mat-label>Title:</mat-label>
+      <input
+        matInput
+        type="text"
+        [(ngModel)]="formData.title"
+        name="title"
+        required
+      />
+    </mat-form-field>
+  </div>
+  <div class="form-group">
+    <mat-form-field>
+      <mat-label>Start Date:</mat-label>
+      <input
+        matInput
+        [matDatepicker]="startDatePicker"
+        [(ngModel)]="formData.startDate"
+        name="startDate"
+        required
+      />
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="startDatePicker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #startDatePicker></mat-datepicker>
+    </mat-form-field>
+  </div>
+  <div class="form-group">
+    <mat-form-field>
+      <mat-label>End Date:</mat-label>
+      <input
+        matInput
+        [matDatepicker]="endDatePicker"
+        [(ngModel)]="formData.endDate"
+        name="endDate"
+        required
+      />
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="endDatePicker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #endDatePicker></mat-datepicker>
+    </mat-form-field>
+  </div>
+  <div class="form-group">
+    <mat-form-field>
+      <mat-label>Description:</mat-label>
+      <input
+        matInput
+        type="text"
+        [(ngModel)]="formData.description"
+        name="description"
+        required
+      />
+    </mat-form-field>
+  </div>
+  <div class="form-group">
+    <mat-form-field>
+      <mat-label>Comments:</mat-label>
+      <input
+        matInput
+        type="text"
+        [(ngModel)]="formData.comments"
+        name="comments"
+        required
+      />
+    </mat-form-field>
+  </div>
+  <div class="form-group">
+    <mat-form-field>
+      <mat-label>Status:</mat-label>
+      <mat-select [(ngModel)]="formData.status" name="status" required="status">
+        <mat-option value="0">Not Started</mat-option>
+        <mat-option value="1">In Progress</mat-option>
+        <mat-option value="2">Completed</mat-option>
+        <mat-option value="3">On Hold</mat-option>
+        <mat-option value="4">Cancelled</mat-option>
+        <mat-option value="5">Deferred</mat-option>
+        <mat-option value="6">Delayed</mat-option>
+        <mat-option value="7">On Track</mat-option>
+        <mat-option value="8">Sign Off Pending</mat-option>
+        <mat-option value="9">Invoice Pending</mat-option>
+        <mat-option value="10">Payment Pending</mat-option>
+        <mat-option value="11">Payment Received</mat-option>
+        <mat-option value="12">Payment Delayed</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <button type="submit" mat-raised-button color="primary" class="custom-button">
+    Submit
+  </button>
+</form>
+
+<table class="table-container" #content>
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Title</th>
+      <th>Start Date</th>
+      <th>End Date</th>
+      <th>Description</th>
+      <th>Comments</th>
+      <th>Status</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of projects; let i = index">
+      <td>{{ item.projectId }}</td>
+      <td>{{ item.title }}</td>
+      <td>{{ item.startDate | date }}</td>
+      <td>{{ item.endDate | date }}</td>
+      <td>{{ item.description }}</td>
+      <td>{{ item.comments }}</td>
+      <td>{{ item.status }}</td>
+      <td>
+        <button
+          mat-raised-button
+          color="warn"
+          (click)="delete(item.id)"
+          class="action-button"
+        >
+          Delete
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

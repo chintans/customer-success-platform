@@ -1,0 +1,138 @@
+<button mat-button id="download-btn" (click)="makePdf()">Download</button>
+<form (ngSubmit)="onSubmit()" class="form-container">
+  <mat-form-field class="form-group">
+    <mat-label>ID:</mat-label>
+    <mat-select [(ngModel)]="formData.projectId" name="id" required>
+      <mat-option *ngFor="let item of availableIds" [value]="item.id">{{
+        item.name
+      }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field class="form-group">
+    <mat-label>Version</mat-label>
+    <input
+      matInput
+      type="number"
+      [(ngModel)]="formData.version"
+      name="version"
+      required
+    />
+  </mat-form-field>
+  <mat-form-field class="form-group">
+    <mat-label>Type</mat-label>
+    <input
+      matInput
+      type="text"
+      [(ngModel)]="formData.type"
+      name="type"
+      required
+    />
+  </mat-form-field>
+  <mat-form-field class="form-group">
+    <mat-label>Change:</mat-label>
+    <input
+      matInput
+      type="text"
+      [(ngModel)]="formData.change"
+      name="change"
+      required
+    />
+  </mat-form-field>
+  <mat-form-field class="form-group">
+    <mat-label>Change Reason:</mat-label>
+    <input
+      matInput
+      type="text"
+      [(ngModel)]="formData.changeReason"
+      name="changeReason"
+      required
+    />
+  </mat-form-field>
+  <mat-form-field class="form-group">
+    <mat-label>Created By:</mat-label>
+    <input
+      matInput
+      type="text"
+      [(ngModel)]="formData.createdBy"
+      name="createdBy"
+      required
+    />
+  </mat-form-field>
+  <mat-form-field class="form-group">
+    <mat-label>Revision Date:</mat-label>
+    <input
+      matInput
+      [matDatepicker]="picker"
+      [(ngModel)]="formData.revisionDate"
+      name="revisionDate"
+      required
+    />
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field class="form-group">
+    <mat-label>Approval Date:</mat-label>
+    <input
+      matInput
+      [matDatepicker]="picker2"
+      [(ngModel)]="formData.approvalDate"
+      name="approvalDate"
+      required
+    />
+    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+    <mat-datepicker #picker2></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field class="form-group">
+    <mat-label>Approved By:</mat-label>
+    <input
+      matInput
+      type="text"
+      [(ngModel)]="formData.approvedBy"
+      name="approvedBy"
+      required
+    />
+  </mat-form-field>
+  <button type="submit" mat-raised-button color="primary" class="submit-button">
+    Submit
+  </button>
+</form>
+
+<table class="table-container" #content>
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Version</th>
+      <th>Type</th>
+      <th>Change</th>
+      <th>Change Reason</th>
+      <th>Created By</th>
+      <th>Revision Date</th>
+      <th>Approval Date</th>
+      <th>Approved By</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of projects; let i = index">
+      <td>{{item.id}}</td>
+      <td>{{ item.version }}</td>
+      <td>{{ item.type }}</td>
+      <td>{{ item.change }}</td>
+      <td>{{ item.changeReason }}</td>
+      <td>{{ item.createdBy }}</td>
+      <td>{{ item.revisionDate }}</td>
+      <td>{{ item.approvalDate }}</td>
+      <td>{{ item.approvedBy }}</td>
+      <td>
+        <button
+          mat-raised-button
+          color="warn"
+          (click)="delete(item.id)"
+          class="action-button"
+        >
+          Delete
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

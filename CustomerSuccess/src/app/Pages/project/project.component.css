@@ -1,0 +1,33 @@
+/* CSS for Form */
+.form {
+  display: flex;
+  flex-direction: column;
+
+  padding: 20px;
+}
+
+.input-field {
+  width: 100%;
+  max-width: 400px; 
+  margin-bottom: 20px;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+textarea.mat-input-element {
+  height: 150px; 
+  resize: vertical; /* Allow vertical resizing */
+}
+
+.action-btn {
+  width: 200px; /* Set button width */
+  margin-bottom: 10px; /* Add margin between button and form fields */
+}
+
+#download-btn {
+  background-color: green; /* Change download button color to green */
+  color: white; /* Change text color to white */
+}
+
