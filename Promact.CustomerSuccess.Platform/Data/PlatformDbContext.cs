@@ -25,18 +25,26 @@ public class PlatformDbContext : AbpDbContext<PlatformDbContext>
     public DbSet<Organization> Organizations { get; set; }
     public DbSet<ClientFeedback> ClientFeedbacks { get; set; }
     public DbSet<ProjectBudget> ProjectBudgets { get; set; }
+    public DbSet<VersionHistory> VersionHistory { get; set; }
+    public DbSet<AuditHistory> AuditHistory { get; set; }
+    public DbSet<ProjectDescription> ProjectDescription { get; set; }
+    public DbSet<Scope> Scope { get; set; }
+    public DbSet<ProjectStack> ProjectStack { get; set; }
     public DbSet<PhaseMilestone> PhaseMilestones { get; set; }
     public DbSet<ProjectResources> ProjectResources { get; set; }
     public DbSet<RiskProfile> RiskProfiles { get; set; }
     public DbSet<MeetingMinute> MeetingMinutes { get; set; }
     public DbSet<EscalationMatrix> EscalationMatrices { get; set; }
+    public DbSet<Stakeholder> Stakeholders { get; set; }
     public DbSet<Sprint> Sprints { get; set; }
+    public DbSet<DetTimeRef> DetailedTimelineReference { get; set; }
+    public DbSet<ApprovedTeam> ApprovedTeam { get; set; }
+    public DbSet<ProjectUpdates> ProjectUpdates { get; set; }
     public DbSet<ApplicationUser> Users { get; set; }
 
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
-        base.OnModelCreating(builder);
 
         /* Include modules to your migration db context */
 
@@ -50,15 +58,15 @@ public class PlatformDbContext : AbpDbContext<PlatformDbContext>
 
         /* Configure your own entities here */
         builder.Entity<DocumentVersion>(entity =>
-        {                        
+        {
             entity.ConfigureByConvention();
         });
         builder.Entity<EscalationMatrix>(EscalationMatrix =>
-        {            
+        {
             EscalationMatrix.ConfigureByConvention();
         });
         builder.Entity<MeetingMinute>(MeetingMinute =>
-        {            
+        {
             MeetingMinute.ConfigureByConvention();
         });
         builder.Entity<Organization>(Organization =>
@@ -73,9 +81,33 @@ public class PlatformDbContext : AbpDbContext<PlatformDbContext>
         {
             ProjectBudget.ConfigureByConvention();
         });
+        builder.Entity<VersionHistory>(VersionHistory =>
+        {
+            VersionHistory.ConfigureByConvention();
+        });
+        builder.Entity<AuditHistory>(AuditHistory =>
+        {
+            AuditHistory.ConfigureByConvention();
+        });
+        builder.Entity<ProjectDescription>(ProjectDescription =>
+        {
+            ProjectDescription.ConfigureByConvention();
+        });
+        builder.Entity<Scope>(Scope =>
+        {
+            Scope.ConfigureByConvention();
+        });
+        builder.Entity<ProjectStack>(ProjectStack =>
+        {
+            ProjectStack.ConfigureByConvention();
+        });
         builder.Entity<ProjectResources>(ProjectResources =>
         {
             ProjectResources.ConfigureByConvention();
+        });
+        builder.Entity<Stakeholder>(Stakeholder =>
+        {
+            Stakeholder.ConfigureByConvention();
         });
         builder.Entity<RiskProfile>(RiskProfile =>
         {
@@ -97,11 +129,22 @@ public class PlatformDbContext : AbpDbContext<PlatformDbContext>
         {
             Document.ConfigureByConvention();
         });
+        builder.Entity<DetTimeRef>(DetTimeRef =>
+        {
+            DetTimeRef.ConfigureByConvention();
+        });
+        builder.Entity<ApprovedTeam>(ApprovedTeam =>
+        {
+            ApprovedTeam.ConfigureByConvention();
+        });
+        builder.Entity<ProjectUpdates>(ProjectUpdates =>
+        {
+            ProjectUpdates.ConfigureByConvention();
+        });
         builder.Entity<ApplicationUser>(ApplicationUser =>
         {
             ApplicationUser.ConfigureByConvention();
         });
-
 
     }
 }
